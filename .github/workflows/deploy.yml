@@ -1,31 +1,25 @@
-name: Publish Website to CPanel
+name: Publish Website to Web Hosting
 
 on:
   push:
     branches:
-      - master
-      - main
+      - main  # Make sure to include a dash here for the branch name
 
 jobs:
-  FTP-Deploy-Action:
-    name: FTP Deploy Action
+  deploy:
+    name: Deploy website every commit
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
+      - name: Get latest code
+        uses: actions/checkout@v2  # Correct syntax for using checkout action
 
-      - name: Initialize git repository
-        run: |
-          git init  # Initializes a Git repository in case it's not already a Git repo
-          git add .  # Adds all files to staging
-          git commit -m "Initialize repository" || echo "Already a git repo, skipping init"
-
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      - name: FTP Deploy Action
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          ftp-server: ftp://ftp.xpart.top  # Your FTP server
-          ftp-username: ${{ secrets.FTP_USERNAME }}  # Your FTP username from secrets
-          ftp-password: ${{ secrets.FTP_PASSWORD }}  # Your FTP password from secrets
+          server: ${{ secrets.FTP_SERVER }}  # Use secrets for sensitive info
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps  # Ensure the protocol is 'ftps' for secure transfer
+          port: 21
+          local-dir: './'  # Path to the local directory to upload, '.' refers to the root of your repo
