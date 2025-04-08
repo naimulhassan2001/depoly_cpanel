@@ -29,4 +29,3 @@ jobs:
           ftp-server: ftp://ftp.xpart.top  # Your FTP server
           ftp-username: ${{ secrets.FTP_USERNAME }}  # Your FTP username from secrets
           ftp-password: ${{ secrets.FTP_PASSWORD }}  # Your FTP password from secrets
-          local-dir: './portfolio.xpart.top'  # Local directory to upload
