@@ -17,9 +17,16 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Initialize git repository
+        run: |
+          git init  # Initializes a Git repository in case it's not already a Git repo
+          git add .  # Adds all files to staging
+          git commit -m "Initialize repository" || echo "Already a git repo, skipping init"
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
-          ftp-server: ftp://ftp.xpart.top  # Ensure 'ftp://' is included in the server URL
-          ftp-username: ${{ secrets.FTP_USERNAME }}  # Ensure this secret is set in your repo settings
-          ftp-password: ${{ secrets.FTP_PASSWORD }}  # Ensure this secret is set in your repo settings
+          ftp-server: ftp://ftp.xpart.top  # Your FTP server
+          ftp-username: ${{ secrets.FTP_USERNAME }}  # Your FTP username from secrets
+          ftp-password: ${{ secrets.FTP_PASSWORD }}  # Your FTP password from secrets
+          local-dir: './portfolio.xpart.top'  # Local directory to upload
