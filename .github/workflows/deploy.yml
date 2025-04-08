@@ -20,6 +20,6 @@ jobs:
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
-          ftp-server: ftp.xpart.top
-          ftp-username: ${{ secrets.FTP_USERNAME }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          ftp-server: ftp://ftp.xpart.top  # Ensure 'ftp://' is included in the server URL
+          ftp-username: ${{ secrets.FTP_USERNAME }}  # Ensure this secret is set in your repo settings
+          ftp-password: ${{ secrets.FTP_PASSWORD }}  # Ensure this secret is set in your repo settings
